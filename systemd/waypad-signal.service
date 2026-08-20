@@ -1,0 +1,33 @@
+[Unit]
+Description=Waypad signaling server
+Documentation=https://github.com/Frumorn12/waypad-signal
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/waypad-signal
+Restart=on-failure
+RestartSec=2s
+Environment=RUST_LOG=info
+Environment=WAYPAD_SIGNAL_BIND=127.0.0.1:47790
+
+# The server keeps no state on disk and needs nothing but a socket.
+DynamicUser=yes
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+SystemCallFilter=@system-service
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target
