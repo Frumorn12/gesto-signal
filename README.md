@@ -1,12 +1,14 @@
-# waypad-signal
+# gesto-signal
 
-Rendezvous server that lets a Waypad phone reach a Waypad host from a foreign
+> Formerly waypad-signal. The binary, unit and environment variables keep the `waypad-` prefix for now; the protocol strings are unchanged.
+
+Rendezvous server that lets a [Gesto](https://github.com/Frumorn12/gesto) phone reach its PC from a foreign
 network — mobile data, a friend's Wi-Fi, a hotel — without port forwarding and
 without punching a hole in your router.
 
 ## Why this exists
 
-The Waypad daemon listens on your LAN. From outside, your router's NAT makes it
+The Gesto daemon ([gesto-linux](https://github.com/Frumorn12/gesto-linux)) listens on your LAN. From outside, your router's NAT makes it
 unreachable, and if your ISP uses CGNAT even port forwarding will not help.
 
 The fix is that **neither side listens**: both the daemon and the phone dial
@@ -23,7 +25,7 @@ This server is deliberately **not** a trusted party.
 - It never sees your session content. SDP and ICE candidates pass through
   verbatim as opaque payloads; the media and input streams never touch it.
 - It holds no host secrets and cannot impersonate a host.
-- The peers still run the normal Waypad end-to-end handshake (P-256 ECDH,
+- The peers still run the normal Gesto end-to-end handshake (P-256 ECDH,
   ECDSA host identity, AES-GCM) over the transport it helped establish. A
   malicious signaling server can deny service, not eavesdrop.
 
